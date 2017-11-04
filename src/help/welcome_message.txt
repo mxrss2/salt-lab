@@ -1,0 +1,20 @@
++=============================================================================================+
+| Welcome to Salt Lab                                                                         |
+|                                                                                             |
+|                                                                          Have Fun           |
++=============================================================================================+
+
+Hi Developer,
+
+Welcome to SaltStack Server Developer Kit. This should have everything you need to get started
+To Start Simply do the following.
+
+1. Invoke-Build CreateLab - or - Invoke-Build Parallel-CreateLab
+2. This will provision the lab for you
+3. The Salt State files are in the states directory in the provisioner directory
+4. If you mess up its ok -- Dont Panic -- Just Restore the Lab with Invoke-Build RestoreLab
+5. To Kill the lab when you are done just run Invoke-Build DestoryLab
+
+ENJOY!
+
+

@@ -1,0 +1,9 @@
+master:  {{ ssp_master }}
+id: {{ host_name }}
+
+use_superseded:
+  - module.run
+
+grains:
+    roles: 
+      - {{ server_role }}

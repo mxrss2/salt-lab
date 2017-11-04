@@ -1,0 +1,17 @@
++=============================================================================================+
+| Welcome to Salt Lab                                                                         |
+|                                                                                             |
+|                                                                          Have Fun           |
++=============================================================================================+
+
+Hi Developer,
+
+This installs the dependencies to use this lab environment. THe following will be installed
+
+* Minikube
+* Kubectl
+* git
+* vagrant
+* virtual box
+
+Have Fun!
