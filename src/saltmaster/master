@@ -1,0 +1,21 @@
+pki_dir: /etc/salt/pki
+gitfs_provider: pygit2
+gitfs_base: master
+
+fileserver_backend:
+  - git
+
+
+file_roots:
+  base:
+    - /etc/salt/test/source
+
+gitfs_remotes:
+  - https://github.com/mxrss2/tester.git:
+    - mountpoint: salt://
+
+reactor:
+  - 'salt/auth':
+    - salt://reactors/auth-pending.sls
+  - 'salt/minion/ink*/start':
+    - salt://reactors/auth-complete.sls
