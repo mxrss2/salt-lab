@@ -1,2 +1,4 @@
 _generated/
 .vagrant/
+./kube/
+./minikube/

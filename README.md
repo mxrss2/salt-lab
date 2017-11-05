@@ -80,4 +80,5 @@ The following contains the releas notes for this lab.
     * Created Salt States that are used on first run for Minions
     * Created `Invoke-Build` script that is used for orchestrating Minikube and Vagrant
     * Added parallel extensions to `invoke-build`
+    * System should automount filesystem to docker guest
 

@@ -1,12 +1,20 @@
+$vendorDirectory = resolve-path ../vendor
+$GLOBAL_IP = ""
+. $vendorDirectory/psMustache/psMustache.ps1
+
+
 # Synopsis: Create the Lab
 task CreateLab {
     minikube start
-    $ip = $(minikube ip)
-    $env:SALT_MASTER_TO_CONFIGURE = $ip
+    Invoke-Build _mountKubeStorage
+    $GLOBAL_IP = $(minikube ip)
+    $env:SALT_MASTER_TO_CONFIGURE = $GLOBAL_IP
+    'Creating Provisioner and Job Files'
+    Invoke-Build _genConfig
     'Creating Lab!'
-    vagrant up --parallel
+    vagrant up 
     'Reloading Configuration After Hostname Change'
-    vagrant reload --parallel
+    vagrant reload
 }
 
 # Synopsis: Restore the lab
@@ -46,6 +54,7 @@ task RemoteShell-Proxy {
 task Parallel-CreateLab {
     'Creating Minikube'
     minikube start
+    Invoke-Build _mountKubeStorage
     $ip = $(minikube ip)
     $env:SALT_MASTER_TO_CONFIGURE = $ip
 
@@ -112,8 +121,20 @@ task Parallel-RestoreLab  {
 } 
 
 
+task _mountKubeStorage {
+    "Mountin Storage $PWD"
+    &vboxmanage.exe sharedfolder add minikube --hostpath "$(Resolve-Path $PWD\..\saltmaster)" --name vm-salt-lab --transient
+}
+
 
 task _cleanUpJobs {
     Get-Job | Receive-Job
     get-job | % { Remove-Job $_ }
+}
+
+task _genConfig {
+    
+    $ip = $(minikube ip)
+    Invoke-Template @{minikube_ip=$ip} $(cat ../templates/SaltConfigDeployment.tpl.yml -raw) > ../saltmaster/_generated/SaltConfigDeployment.yml
+    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/mount-filesystem-job.tpl.yml" -raw) > ../saltmaster/_generated/mount-filesystem-job.yml
 }

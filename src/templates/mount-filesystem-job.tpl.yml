@@ -1,0 +1,14 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: mount-drive
+spec:
+  template:
+    metadata:
+      name: mount-drive
+    spec:
+      containers:
+      - name: mount-drive
+        image: ictu/sshpass
+        command: ["sshpass",  "-p", "tcuser", "ssh", "-o", "StrictHostKeyChecking=no", "docker@{{minikube_ip}}", "sudo mkdir /vm-salt-lab;sudo mount -t vboxsf vm-salt-lab /vm-salt-lab"]
+      restartPolicy: Never
