@@ -12,11 +12,11 @@ resource that can be used by anyone employed at Assurant. This part of the kit c
 ## How Does This Work?
 
 Well the lab uses a few technolgies like Vagrant and Minikube to create a fully working and useable lab. The lab will create the following, two windows 2012 server core nodes and one load balancer. Minikube will create a one node Kuberntes cluster which will house
-the Salt Server. The image is pulled off the public internete from http://hub.docker.com but it was baked in house. The Server only contains a docker image with the following recipe.
+the Salt Server. The image is pulled off the public internet from http://hub.docker.com but it was baked in house. The Server only contains a docker image with the following recipe.
 
 If you look at the docs folder in the root a PDF and visio document describe what the lab looks like. I am using GitFS to store the state to show what a fully baked out implementation will look like. The branches are used so that changes are migrated gradullally out. 
 
-Source: (Saltstack-Image)[https://github.com/mxrss2/saltstack-image]
+Source: [Saltstack-Image](https://github.com/mxrss2/saltstack-image)
 
 
 ## Who Maintains This?
