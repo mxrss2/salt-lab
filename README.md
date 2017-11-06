@@ -66,6 +66,8 @@ Read more at [Why Vagrant?](https://www.vagrantup.com/intro/index.html)
 
 Added support for Experimental support for using parallel tasks to spin up the environment. Usually the full provision takes about 7 minutes but if you use `Parallel-` in front of the task it will bring down the time by a factor of half. Most runs with SSD's take in the neighborhood of 3 minutes. 
 
+
+
 ## Release Notes
 
 The following contains the releas notes for this lab.

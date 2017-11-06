@@ -56,11 +56,12 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "proxy" do |proxy|
-    proxy.vm.box = "atorre/ingweb-comp-nube-64-haproxy"
-    proxy.vm.box_version = "0.0.1"
+    proxy.vm.box = "mxrss2/linux-xental-haproxy-salt"
+    proxy.vm.box_version = "0.1.0"
     proxy.vm.network "private_network", type: "dhcp"
-    proxy.vm.network :forwarded_port, guest: 80, host: 3000, id: "http_loadbalance", auto_correct: true
+    proxy.vm.network :forwarded_port, guest: 80, host: 3000, id: "http_loadbalance"
     proxy.vm.network :forwarded_port, guest: 3001, host: 3001, id: "stats"
+    proxy.vm.network :forwarded_port, guest: 22, host: 2222, id: "sshd", auto_correct: true
 
     # proxy.vm.provision "shell",
     #env: {"SALT_MASTER" => ENV['SALT_MASTER_TO_CONFIGURE'],  "HOST_NAME" => "proxy", "SERVER_ROLE" => "proxy"} 
