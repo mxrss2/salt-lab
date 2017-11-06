@@ -139,10 +139,13 @@ task _cleanUpJobs {
 
 task _genConfig {
     'Creating Provisioner and Job Files'
-    $genereated_config_dir = Resolve-Path "../saltmaster/_generated/"
+    $base_dir = Resolve-Path "../saltmaster/"
     $ip = $env:MINIKUBE_IP
-    if (Test-Path $genereated_config_dir -not){
-        new-item $genereated_config_dir
+    $generated_config_dir = Join-Path $base_dir "_generated"
+    "$generated_config_dir"
+    if ((Test-Path $generated_config_dir) -eq $false){
+        'Creating File!'
+        new-item $generated_config_dir -itemType Directory
     }
 
     Invoke-Template @{minikube_ip=$ip} $(cat "../templates/SaltConfigDeployment.tpl.yml" -raw) > "$generated_config_dir/SaltConfigDeployment.yml"
