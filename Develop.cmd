@@ -14,7 +14,7 @@ ECHO @OFF
 CLS
 type %CD%\src\help\welcome_message.txt
 CD %CD%\src\guest
-@"powershell.exe" 
+@"powershell.exe" -executionpolicy bypass
 
 
 
