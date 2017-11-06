@@ -87,3 +87,4 @@ The following contains the releas notes for this lab.
     * System should automount filesystem to docker guest
 
  * #1 - Execution Policy Prevents Run
+ * #2 - Generated Directory Is Not Auto Created
