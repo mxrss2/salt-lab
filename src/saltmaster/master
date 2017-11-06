@@ -1,5 +1,6 @@
 pki_dir: /etc/salt/pki
 gitfs_provider: pygit2
+gitfs_ssl_verify: false
 gitfs_base: master
 
 fileserver_backend:

@@ -11,10 +11,11 @@ task CreateLab {
     $env:MINIKUBE_IP = $(minikube ip)
     $env:SALT_MASTER_TO_CONFIGURE = $env:MINIKUBE_IP
 
-    'Creating Provisioner and Job Files'
+    
     Invoke-Expression $provisioner_work
     'Creating Lab!'
     vagrant up 
+    Invoke-Build LaunchSaltMaster
     'Reloading Configuration After Hostname Change'
     vagrant reload
 }
@@ -75,7 +76,7 @@ task Parallel-CreateLab {
     }
 
     Get-Job
-
+    Invoke-Build LaunchSaltMaster
     #Wait for completion
     While (Get-Job -State "Running"){
         Start-Sleep 3
@@ -137,8 +138,18 @@ task _cleanUpJobs {
 }
 
 task _genConfig {
-    
+    'Creating Provisioner and Job Files'
     $ip = $env:MINIKUBE_IP
-    Invoke-Template @{minikube_ip=$ip} $(cat ../templates/SaltConfigDeployment.tpl.yml -raw) > ../saltmaster/_generated/SaltConfigDeployment.yml
-    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/mount-filesystem-job.tpl.yml" -raw) > ../saltmaster/_generated/mount-filesystem-job.yml
+    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/SaltConfigDeployment.tpl.yml" -raw) > "../saltmaster/_generated/SaltConfigDeployment.yml"
+    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/mount-filesystem-job.tpl.yml" -raw) > "../saltmaster/_generated/mount-filesystem-job.yml"
 }
+
+# Synopsis: This will launch the salt master - Use me when you make changes to salt master
+task LaunchSaltMaster {
+    'Launching Salt Master'
+    $salt_master_yaml = Resolve-Path $PWD\..\saltmaster\_generated\SaltConfigDeployment.yml
+    &kubectl delete -f "$salt_master_yaml"
+    &kubectl apply -f "$salt_master_yaml"
+}
+
+
