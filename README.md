@@ -88,3 +88,4 @@ The following contains the releas notes for this lab.
 
  * #1 - Execution Policy Prevents Run
  * #2 - Generated Directory Is Not Auto Created
+ * #3 - Need to Grab Boxes as part of Requrirements.cmd
