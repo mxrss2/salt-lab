@@ -139,9 +139,17 @@ task _cleanUpJobs {
 
 task _genConfig {
     'Creating Provisioner and Job Files'
+    $base_dir = Resolve-Path "../saltmaster/"
     $ip = $env:MINIKUBE_IP
-    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/SaltConfigDeployment.tpl.yml" -raw) > "../saltmaster/_generated/SaltConfigDeployment.yml"
-    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/mount-filesystem-job.tpl.yml" -raw) > "../saltmaster/_generated/mount-filesystem-job.yml"
+    $generated_config_dir = Join-Path $base_dir "_generated"
+    "$generated_config_dir"
+    if ((Test-Path $generated_config_dir) -eq $false){
+        'Creating File!'
+        new-item $generated_config_dir -itemType Directory
+    }
+
+    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/SaltConfigDeployment.tpl.yml" -raw) > "$generated_config_dir/SaltConfigDeployment.yml"
+    Invoke-Template @{minikube_ip=$ip} $(cat "../templates/mount-filesystem-job.tpl.yml" -raw) > "$generated_config_dir/mount-filesystem-job.yml"
 }
 
 # Synopsis: This will launch the salt master - Use me when you make changes to salt master

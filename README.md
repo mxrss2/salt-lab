@@ -19,6 +19,8 @@ If you look at the docs folder in the root a PDF and visio document describe wha
 Source: [Saltstack-Image](https://github.com/mxrss2/saltstack-image)
 
 
+
+
 ## Who Maintains This?
 
 The main maintainer of this repository is the Server Engineering Group at SSP in Collaboration wtih the SSP SRE teams.
@@ -84,3 +86,6 @@ The following contains the releas notes for this lab.
     * Added parallel extensions to `invoke-build`
     * System should automount filesystem to docker guest
 
+ * #1 - Execution Policy Prevents Run
+ * #2 - Generated Directory Is Not Auto Created
+ * #3 - Need to Grab Boxes as part of Requrirements.cmd

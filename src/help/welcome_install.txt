@@ -14,4 +14,7 @@ This installs the dependencies to use this lab environment. THe following will b
 * vagrant
 * virtual box
 
+Also Installs the VM Boxes requiremd for the lab to work
+
+
 Have Fun!
