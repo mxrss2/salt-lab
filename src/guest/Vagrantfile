@@ -8,9 +8,14 @@
 
 
 $script = <<SCRIPT
-  & "c:\\salt\\salt-call.bat" state.highstate --local
+  & "c:\\salt\\salt-call.bat" state.highstate --local 
   & "c:\\salt\\salt-call.bat" state.highstate --local
   gci Env:
+SCRIPT
+
+$linux_script = <<SCRIPT
+sudo SALT_MASTER=$SALT_MASTER HOST_NAME=$HOST_NAME SERVER_ROLE=$SERVER_ROLE salt-call state.highstate --local 
+sudo SALT_MASTER=$SALT_MASTER HOST_NAME=$HOST_NAME SERVER_ROLE=$SERVER_ROLE salt-call state.highstate --local 
 SCRIPT
 
 Vagrant.configure("2") do |config|
@@ -62,9 +67,9 @@ Vagrant.configure("2") do |config|
     proxy.vm.network :forwarded_port, guest: 80, host: 3000, id: "http_loadbalance"
     proxy.vm.network :forwarded_port, guest: 3001, host: 3001, id: "stats"
     proxy.vm.network :forwarded_port, guest: 22, host: 2222, id: "sshd", auto_correct: true
-
-    # proxy.vm.provision "shell",
-    #env: {"SALT_MASTER" => ENV['SALT_MASTER_TO_CONFIGURE'],  "HOST_NAME" => "proxy", "SERVER_ROLE" => "proxy"} 
+    proxy.vm.synced_folder "./provisioner", "/srv/salt/"
+    proxy.vm.provision "shell", inline: $linux_script,
+      env: {"SALT_MASTER" => ENV['SALT_MASTER_TO_CONFIGURE'],  "HOST_NAME" => "proxy", "SERVER_ROLE" => "proxy"} 
 
   end
 

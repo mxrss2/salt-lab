@@ -62,7 +62,11 @@ Read more at [Why Vagrant?](https://www.vagrantup.com/intro/index.html)
 4. Use the `Invoke-Build ?`
     1. This will get you a list of allowed tasks that you can run
 5. To start the lab type `invoke-build CreateLab`
-5. To Shut down the Guest use `Invoke-Build DestroyLab`  
+6. You can play with minikube via `minikube dashboard`
+7. Once the lab is up Exec into the saltmaster node and issue a     `salt -G 'roles:web' state.highstate   
+8. Visit the website with `http://localhost:3000`
+9. Visit stats page with `http://localhost:3001` 
+8. To Shut down the Guest use `Invoke-Build DestroyLab`  
 
 ## **Experimental Support** Parallel Jobs Using Jobs in Powershell
 
@@ -89,3 +93,4 @@ The following contains the releas notes for this lab.
  * #1 - Execution Policy Prevents Run
  * #2 - Generated Directory Is Not Auto Created
  * #3 - Need to Grab Boxes as part of Requrirements.cmd
+ * #8 - Lab is not brining up load balancer
