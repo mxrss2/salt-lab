@@ -15,8 +15,15 @@ gitfs_remotes:
   - https://github.com/mxrss2/tester.git:
     - mountpoint: salt://
 
+ext_pillar:
+  - git:
+    - master https://github.com/mxrss2/tester.git:
+      - root: pillar
+
 reactor:
   - 'salt/auth':
     - salt://reactors/auth-pending.sls
   - 'salt/minion/ink*/start':
     - salt://reactors/auth-complete.sls
+  - 'ssp/loadbalaencer/pool/update':
+    - salt://reactors/proxy-config.sls
