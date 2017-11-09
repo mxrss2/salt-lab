@@ -17,7 +17,7 @@ task CreateLab {
     vagrant up 
     Invoke-Build LaunchSaltMaster
     'Reloading Configuration After Hostname Change'
-    vagrant reload
+    exec { vagrant reload }
 }
 
 # Synopsis: Restore the lab
@@ -83,6 +83,8 @@ task Parallel-CreateLab {
     }
 
     invoke-build _cleanUpJobs
+    'Reloading Lab!'
+    exec { vagrant reload }
 
 }
 

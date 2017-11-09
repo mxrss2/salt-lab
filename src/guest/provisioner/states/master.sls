@@ -4,7 +4,11 @@ dis-salt-minion:
    
 deploy the minion configuration:
  file.managed:
+ {% if grains['os'] == 'Windows' %}
   - name: c:/salt/conf/minion
+{% else %}
+  - name: /etc/salt/minion
+{% endif %}
   - source: salt://files/minion.jinja
   - template: jinja
   - context:
